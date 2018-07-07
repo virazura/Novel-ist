@@ -44,7 +44,7 @@ class Home extends React.Component {
       }
     }
 
-    //handle page
+    //handle page pagination
     handlePageChange = (pageNumber) => {
       console.log(`active page is ${pageNumber}`)
       this.setState({
