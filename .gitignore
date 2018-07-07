@@ -3,5 +3,5 @@ node_modules/
 .env
 
 .vscode/
-._.DS_Store
-README.md
+.DS_Store
+

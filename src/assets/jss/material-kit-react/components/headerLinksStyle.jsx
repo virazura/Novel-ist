@@ -37,6 +37,7 @@ const headerLinksStyle = theme => ({
     padding: "0 !important"
   },
   navLink: {
+    background: "inherit",
     color: "#fff",
     position: "relative",
     padding: "0.9375rem",
@@ -102,16 +103,49 @@ const headerLinksStyle = theme => ({
     marginRight: "4px"
   },
   dropdownLink: {
-    "&,&:hover,&:focus": {
-      color: "inherit",
-      textDecoration: "none",
-      display: "block",
-      padding: "10px 20px",
+    background:"#89bcb2",
+    textDecoration: "none",
+    display: "block",
+    color: "#fff",
+    padding: "10px 20px",
+    "&:hover,&:focus": {
+      background: "#659e93",
+      color: "#fff",
+      
     }
   },
   ...tooltip,
   marginRight5: {
     marginRight: "5px"
+  },
+  dropdownlink: {
+    background: "#89bcb2",
+    color: "#fff",
+    position: "relative",
+    padding: "0.9375rem",
+    fontWeight: "600",
+    fontSize: "12px",
+    textTransform: "uppercase",
+    borderRadius: "3px",
+    lineHeight: "20px",
+    letterSpacing: "2px",
+    textDecoration: "none",
+    margin: "0px",
+    display: "inline-flex",
+    "&:hover,&:focus": {
+      color: "#fff",
+      background: "rgba(101, 158, 147, 0.2)"
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: "calc(100% - 30px)",
+      marginLeft: "15px",
+      marginBottom: "8px",
+      marginTop: "8px",
+      textAlign: "left",
+      "& > span:first-child": {
+        justifyContent: "flex-start"
+      }
+    }
   }
 });
 

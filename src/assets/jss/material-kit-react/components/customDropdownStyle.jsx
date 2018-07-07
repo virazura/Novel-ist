@@ -12,6 +12,8 @@ import {
   dangerBoxShadow,
   roseColor,
   roseBoxShadow,
+  monteCarloColor,
+  monteCarloBoxShadow
 } from "assets/jss/material-kit-react.jsx";
 
 const customDropdownStyle = theme => ({
@@ -92,6 +94,13 @@ const customDropdownStyle = theme => ({
       backgroundColor: successColor,
       color: "#FFFFFF",
       ...successBoxShadow
+    }
+  },
+  monteCarloHover: {
+    "&:hover": {
+      backgroundColor: monteCarloColor ,
+      color: "#FFFFFF",
+      ...monteCarloBoxShadow
     }
   },
   warningHover: {

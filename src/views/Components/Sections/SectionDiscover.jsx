@@ -1,4 +1,5 @@
 import React from "react";
+import Pagination from "react-js-pagination";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -18,7 +19,20 @@ import discoverStyle from "assets/jss/material-kit-react/views/componentsSection
 
 
 class SectionDiscover extends React.Component{
+    constructor(props){
+        super(props);
+        this.state={
+          activePage: 1
+        }
+      }
 
+    //handle page 
+    handlePageChange = (pageNumber) => {
+        console.log(`active page is ${pageNumber}`)
+        this.setState({
+          activePage: pageNumber
+        })
+      }
     render(){
         const {classes } = this.props;
         return(
@@ -32,15 +46,21 @@ class SectionDiscover extends React.Component{
                     <Book />
                     <Book />
                     <Book />
-                    <Book />
-                    <Book />
-                    <Book />
-                    <Book />
+                    
                     
                 </div>
-                <Button color="coral" round className={classes.btnDiscover}>
-                        See More
-                </Button>
+                <Pagination
+                    activePage={this.state.activePage}
+                    itemsCountPerPage={10}
+                    totalItemsCount={450}
+                    pageRangeDisplayed={5}
+                    onChange={this.handlePageChange}
+                    innerClass={classes.innerClass}
+                    itemClass={classes.itemClass}
+                    linkClass={classes.linkClass}
+                    activeClass={classes.activeClass}
+                    activeLinkClass={classes.activeLinkClass}
+                  />
                 
             </div>
         );

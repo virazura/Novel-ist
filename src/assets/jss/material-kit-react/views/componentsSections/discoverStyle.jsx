@@ -23,11 +23,34 @@ const discoverStyle = {
     boxShadow:
         "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2)"
     },
-    btnDiscover: {
-        margin: "2rem 0px 2rem 45%"
-        
-        
-    }
+    innerClass:{
+        display: "inline-flex",
+        margin: "100px 0px 50px 400px"
+      },
+      itemClass:{
+        padding: "5px 15px",
+        background: "#ffffff",
+        color: "#ffff",
+        listStyle: "none",
+        border: "1px solid #659e93",
+        borderRadius: "5px",
+        "&:hover,&:focus": {
+          background: "#3d8275",
+          color: "#ffffff"
+        }  
+      },
+      linkClass:{
+        color: "#659e93",
+        "&:hover,&:focus": {
+          color: "#ffffff"
+        }
+      },
+      activeClass:{
+        background: "#659e93",
+      },
+      activeLinkClass:{
+          color: "#ffffff"
+      }
 }
 
 export default discoverStyle;

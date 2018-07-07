@@ -22,7 +22,6 @@ function HeaderLinks({ ...props }) {
 
   return (
     
-      
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
           <NavHashLink to="/#about" scroll={el => el.scrollIntoView({behavior: "smooth"})}>
@@ -64,13 +63,7 @@ function HeaderLinks({ ...props }) {
             </Button>
           </Link>
           </ListItem>
-          {/* Route */}
-          
         </List>
-        
-        
-        
-    
   );
 }
 

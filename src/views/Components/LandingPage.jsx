@@ -23,7 +23,7 @@ import SectionInspiration from "./Sections/SectionInspiration.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPageStyle.jsx";
 
 
-// const dashboardRoutes = []
+
 class LandingPage extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
