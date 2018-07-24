@@ -27,12 +27,7 @@ import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
 import Checkbox from "@material-ui/core/Checkbox";
 
 
-
 import createStoryStyle from "assets/jss/material-kit-react/components/createStoryStyle.jsx";
-
-
-
-
 
 class CreateStory extends React.Component {
     constructor(props){
@@ -113,7 +108,7 @@ class CreateStory extends React.Component {
                         <TextField 
                             fullWidth
                             label="Description"
-                            id="title"
+                            id="description"
                             InputProps={{
                                 disableUnderline: true,
                                 classes:{

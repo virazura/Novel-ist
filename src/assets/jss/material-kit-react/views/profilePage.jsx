@@ -56,6 +56,21 @@ const profilePageStyle = {
   navWrapper: {
     margin: "20px auto 50px auto",
     textAlign: "center"
+  },
+  mystorycontainer:{
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    height: "650px"
+  },
+  buttonedit:{
+    background:"#89bcb2",
+      color: "#ffffff",
+      "&:hover,&:focus": {
+        background: "#3d8275",
+        color: "#ffffff"
+      },
+    marginLeft: "20px"
   }
 };
 

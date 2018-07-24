@@ -15,7 +15,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogActions  from "@material-ui/core/DialogActions";
-import Button from 'components/CustomButtons/Button.jsx';
+import Button from '@material-ui/core/Button';
 import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import Muted from "components/Typography/Muted.jsx";
@@ -25,7 +25,8 @@ import Muted from "components/Typography/Muted.jsx";
 import Star from "@material-ui/icons/Star";
 import Eye from "@material-ui/icons/RemoveRedEye";
 import List from "@material-ui/icons/List";
-import Copy from "@material-ui/icons/Copyright"
+import Copy from "@material-ui/icons/Copyright";
+import Add from "@material-ui/icons/Add";
 
 
 // style
@@ -115,8 +116,11 @@ class Book extends React.Component  {
                             <small>Mature Content </small>
                     </DialogContent>
                     <DialogActions className={classes.dialogButton}>
-                        <Button onClick={this.handleClose} color="coral" round >
+                        <Button  variant="contained" size="small" className={classes.readbutton} >
                         Read
+                        </Button>
+                        <Button variant="contained" size="small" className={classes.addbutton} aria-label="Add">
+                            <Add/>
                         </Button>
                     </DialogActions>
                 </Dialog>

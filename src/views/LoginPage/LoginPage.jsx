@@ -35,8 +35,25 @@ const particlesOptions = {
         enable: true,
         value_area: 800
       }
+    },
+    move:{
+      enable: true,
+      speed: 6,
+      direction: "none",
+      random: false,
+      straight: false,
+      out_mode: "out",
+      bounce: false,
+      attract: {enable: false, rotateX: 600, rotateY: 1200}
     }
-    }
+  },
+  interactivity:{
+    detect_on: "window",
+    events:{
+      onhover: {enable: true, mode: "repulse"}
+    },
+    resize: true
+  }
 }
 
 

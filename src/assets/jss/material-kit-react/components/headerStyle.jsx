@@ -65,6 +65,9 @@ const headerStyle = {
       background: "transparent"
     }
   },
+  brandtitle:{
+    color: "#000000"
+  },
   appResponsive: {
     margin: "20px 10px"
   },

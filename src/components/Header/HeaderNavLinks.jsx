@@ -2,17 +2,13 @@
 import React from "react";
 // react components for routing our app without refresh
 import { Link } from "react-router-dom";
-
-
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
 
 // icons
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import IconButton from "@material-ui/core/IconButton"
 
 // core components
 import Button from "components/CustomButtons/Button.jsx";
@@ -27,23 +23,24 @@ function HeaderNavLinks({ ...props }) {
   return (
         <List className={classes.list}>
             <ListItem className={classes.listItem}>
-            <Button
-                color="transparent" 
-                className={classes.navLink}
-                >
+            <Link to="/home">
+                <Button
+                    color="transparent" 
+                    className={classes.navLink}
+                    >
                     {props.navLink1}
                 </Button>
-            
+            </Link>
             </ListItem>
             <ListItem className={classes.listItem}>
-            
-            <Button
-                color="transparent" 
-                className={classes.navLink}
-                >
+            <Link to="/create-new-story">
+                <Button
+                    color="transparent" 
+                    className={classes.navLink}
+                    >
                 {props.navLink2}
                 </Button>
-            
+            </Link>
             </ListItem>
             <ListItem className={classes.listItem}>
             </ListItem>
@@ -56,10 +53,10 @@ function HeaderNavLinks({ ...props }) {
                         color: "transparent"
                     }}
                     dropdownList={[
-                        <Link to="/profile" className={classes.dropdownLink}>
+                        <Link to="/profile-page" className={classes.dropdownLink}>
                             Profile
                         </Link>,
-                        <Link to="/logout" className={classes.dropdownLink}>
+                        <Link to="/" className={classes.dropdownLink}>
                             Logout
                         </Link>
                     ]}

@@ -9,13 +9,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 //Components
 import Book from "components/Books/Book.jsx";
-import Button from 'components/CustomButtons/Button.jsx';
-
 
 //styles
 import discoverStyle from "assets/jss/material-kit-react/views/componentsSections/discoverStyle.jsx";
-
-
 
 
 class SectionDiscover extends React.Component{

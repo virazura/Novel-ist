@@ -54,6 +54,18 @@ const footerStyle = {
     height: "18px",
     position: "relative",
     top: "3px"
+  },
+  copyrighttext:{
+    textAlign:"justify"
+  },
+  appbar:{
+    background: "#96c1b8",
+  },
+  contentguidelines:{
+    marginTop: "100px"
+  },
+  contenttext:{
+    textAlign: "justify"
   }
 };
 export default footerStyle;

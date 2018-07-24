@@ -51,8 +51,8 @@ const headerNavLinksStyle = theme => ({
         margin: "0px",
         display: "inline-flex",
         "&:hover,&:focus": {
-          color: "#fff",
-          background: "rgba(200, 200, 200, 0.2)"
+            backgroundColor: "#659e93",
+            color: "#ffffff"
         },
         [theme.breakpoints.down("sm")]: {
           width: "calc(100% - 30px)",

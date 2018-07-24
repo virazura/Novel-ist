@@ -66,8 +66,6 @@ class LandingPage extends React.Component {
           <SectionInspiration />
         </div>
         <Footer />
-
-        
       </div>
     );
   }

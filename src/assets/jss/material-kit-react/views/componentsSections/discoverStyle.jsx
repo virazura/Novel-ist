@@ -25,7 +25,7 @@ const discoverStyle = {
     },
     innerClass:{
         display: "inline-flex",
-        margin: "100px 0px 50px 400px"
+        margin: "100px 0px 50px 450px"
       },
       itemClass:{
         padding: "5px 15px",

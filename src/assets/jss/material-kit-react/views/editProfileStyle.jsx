@@ -1,8 +1,6 @@
 import { container, title } from "assets/jss/material-kit-react.jsx";
 
-
-
-const createStoryStyle = {
+const editProfileStyle = {
   container:{
       zIndex: "12",
       color: "#FFFFFF",
@@ -37,10 +35,10 @@ const createStoryStyle = {
   footer:{
     marginTop: "0px"
   },
-  storycontainer:{
-      maxWidth: 500,
-      height: 480,
-      marginLeft: "300px"
+  editcontainer:{
+      maxWidth: 550,
+      height: 750,
+      marginLeft: "280px"
   },
   titleinput:{
     border: "2px solid #3d8275",
@@ -63,9 +61,9 @@ const createStoryStyle = {
   checkbox:{
       top: "140px"
   },
-  buttonnext:{
-      top: "120px",
-      left: "400px",
+  buttonsave:{
+      top: "20px",
+      left: "240px",
       background:"#89bcb2",
       color: "#ffffff",
       "&:hover,&:focus": {
@@ -82,71 +80,32 @@ const createStoryStyle = {
     marginLeft: "350px"
   },
   buttonupload:{
-    top: "230px",
-    left: "110px",
+    top: "10px",
+    left: "180px",
     background:"#9dadc4",
     color: "#ffffff",
     "&:hover,&:focus": {
       background: "#6e83a3",
       color: "#ffffff"
     }  
-    },
-  buttonnextup:{
-    top: "250px",
-    left: "290px",
-    background:"#89bcb2",
-    color: "#ffffff",
-    "&:hover,&:focus": {
-      background: "#3d8275",
-      color: "#ffffff"
-    } 
   },
-  chaptercontainer:{
-    width: "850px",
-    height: "650px",
-    marginLeft: "120px"
+  datepicker:{
+    display: "flex",
+    flexWrap: "wrap",
+    marginTop: "150px"
   },
-  homewrapper:{
-    marginTop: "20px",
-    marginLeft: "15px",
-    width: "775px",
-    display: "block",
-    height: "400px"
+  genderselection:{
+    marginTop: "30px"
   },
-  homeeditor:{
-    border: "1px solid #f1f1f1",
-    padding: "5px",
-    borderRadius: "2px",
-    height: "80%",
-    color: "#000000"
+  genderradio:{
+    flexDirection: "row"
   },
-  toolbar:{
-    color: "#000000"
-  },
-  buttonnextchap:{
-    top: "10px",
-    left: "340px",
-    background:"#89bcb2",
-    color: "#ffffff",
-    "&:hover,&:focus": {
-      background: "#3d8275",
-      color: "#ffffff"
-    }  
-  },
-  displaybutton:{
-    diplay: "inline-block"
-  },
-  buttonadd:{
-    background:"#89bcb2",
-      color: "#ffffff",
-      "&:hover,&:focus": {
-        background: "#3d8275",
-        color: "#ffffff"
-      },
-    marginBottom: "30px"  
+  editcontent:{
+      marginTop: "150px"
   }
+  
   
 };
 
 
-export default createStoryStyle;
+export default editProfileStyle;

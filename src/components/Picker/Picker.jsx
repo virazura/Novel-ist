@@ -61,19 +61,17 @@ class Picker extends React.Component{
                         return (selection === "Name Generator") 
                         ? 
                         <div key="expand">
-                        <ListItem button key={i} onClick={this.nestedHandleClick}>
+                        <ListItem button key={i} onClick={this.nestedHandleClick} className={classes.pickerlist}>
                             <ListItemText primary={selection} onClick={((e) => this.getSelection(e, selection))} />
                             {this.state.open ? <ExpandLess /> : <ExpandMore/>}
                         </ListItem>
                         <Collapse in={this.state.open} timeout="auto" >
                             <List component="div">
                             {pickNameGenerator.gender.map( (gender, index) => {
-                                return (
-                                    
-                                    <ListItem button key={index}>
+                                return (    
+                                    <ListItem button key={index} className={classes.pickerlist}>
                                         <ListItemText primary={gender}  onClick={((e) => this.getGender(e, gender))}/>
                                     </ListItem>
-                                        
                                 )
                             })
                             }               
@@ -82,7 +80,7 @@ class Picker extends React.Component{
                         </Collapse>
                         </div>
                         :
-                        <ListItem button key={i} onClick={((e) => this.getSelection(e, selection))}>
+                        <ListItem button className={classes.pickerlist} key={i} onClick={((e) => this.getSelection(e, selection))}>
                             <ListItemText primary={selection} />
                         </ListItem>
                         }

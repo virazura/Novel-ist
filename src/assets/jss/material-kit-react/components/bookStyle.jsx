@@ -27,7 +27,6 @@ const bookStyle = {
     icon: {
         fontSize: "15px",
         color: "#000000",
-        
     },
     iconText: {
         fontSize: "13px",
@@ -41,9 +40,9 @@ const bookStyle = {
         fontSize: "20px"
     },
     imgDialog: {
-        width: "130px",
+        width: "150px",
         height: "200px",
-        marginLeft: "85px"
+        marginLeft: "75px"
     },
     titleBook: {
         textAlign: "center",
@@ -64,6 +63,24 @@ const bookStyle = {
     dialogButton: {
         display: "flex",
         justifyContent: "center"
+    },
+    readbutton:{
+        backgroundColor:"#96c1b8",
+        color: "#ffffff",
+        "&:hover,&:focus": {
+        backgroundColor: "#659e93",
+        color: "#ffffff"
+        },
+        padding: "0px 30px"  
+    },
+    addbutton:{
+        backgroundColor:"#96c1b8",
+        color: "#ffffff",
+        "&:hover,&:focus": {
+        backgroundColor: "#659e93",
+        color: "#ffffff"
+        },  
+        padding: "1px"
     }
     
 }
