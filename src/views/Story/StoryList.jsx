@@ -1,47 +1,105 @@
 import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-
 //component
 import List from "@material-ui/core/List";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-
+import Divider from "@material-ui/core/Divider"
+import {EditorState, convertFromRaw } from "draft-js";
 //style
 import StoryStyle from "assets/jss/material-kit-react/views/readStoryStyle.jsx";
 
 class StoryList extends React.Component{
-    state={
-        selectedChapter: "",
+    constructor(props){
+        super(props);
+        this.state={
+            selectedChapter: "",
+            id: this.props.id,
+            titleChapterList: [],
+            titleStory: '',
+            // content: []
+            
+        }
+    }
+
+
+    //get data for title chapter
+    componentDidMount(){
+        fetch('http://localhost:3001/story-list',{
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            id: this.state.id,                   
+        })
+        })
+        .then(response => response.json())
+        .then( data => {
+            console.log(data)
+            this.setState({
+                titleChapterList: data.titleChapter,
+                titleStory: data.titleStory
+            })
+        })
+    }
+
+    // get data for title chapter and chapter content
+    onSelectedChapter = () => {
+        fetch('http://localhost:3001/content',{
+        method: 'post',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            id: this.state.id, 
+            chapter: this.state.selectedChapter                  
+        })
+        })
+        .then(response => response.json())
+        .then( content => {
+            this.setState({
+                content: content
+                // editorState: EditorState.createWithContent(convertFromRaw(content))
+            })
+            this.props.handleChapterData(this.state.content);
+            this.props.handleTitleData(this.state.selectedChapter)
+        })
     }
 
     //get chapter
     getChapter = (e, chapter) => {
         this.setState({
             selectedChapter: chapter
-        })
-        this.props.onSelectChapter(chapter)
+        }, () => this.onSelectedChapter())
     }
 
     
     render(){
         const {classes} = this.props;
+        const {titleChapterList, titleStory} = this.state;
+        console.log('id',this.state.id)
+        console.log('content',this.state.content)
+        
+        const storyList = titleChapterList.map( (title, i) => {
+            return (
+                <div key={`item-${title}`}>
+                    <ListItem 
+                        onClick={(e) => this.getChapter(e, title)}
+                        className={ classes.listchapter}
+                        >
+                            <ListItemText primary={title}/>
+                    </ListItem>
+                    <Divider component='hr'/>
+                </div>
+            )
+        })
+
         return(
             <div>
                 <List className={classes.list} subheader={<li/>} component="nav">
                     <div className={classes.subheadercontainer}>
-                        <ListSubheader className={classes.subheader}> Lorem ipsum dolor sit amet consectetur adipisicing. </ListSubheader>
+                        <ListSubheader className={classes.subheader}>{titleStory}</ListSubheader>
                     </div>
-                    {[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20].map(section => (
-                        <ListItem button 
-                        key={`item-${section}`} 
-                        onClick={((e) => this.getChapter(e, section))}
-                        className={ classes.listchapter}
-                        >
-                            <ListItemText primary={`${section}. ${section}`} />
-                        </ListItem>
-                    ))}
+                    {storyList}
                 </List>
             </div>
         )

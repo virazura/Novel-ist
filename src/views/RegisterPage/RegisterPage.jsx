@@ -2,6 +2,7 @@ import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
+import { Redirect } from "react-router-dom";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
@@ -20,6 +21,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import Home from "views/Home/Home.jsx";
 
 import Particles from 'react-particles-js';
 //style
@@ -63,7 +65,14 @@ class RegisterPage extends React.Component {
       cardAnimaton: "cardHidden",
       email: "",
       password: "",
-      name: ""
+      name: "",
+      isRegistered: false,
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        joined: ""
+      }
     };
   }
   componentDidMount() {
@@ -92,11 +101,48 @@ class RegisterPage extends React.Component {
     this.setState({ password : event.target.value})
   }
 
+  //update user
+  loadUser = (data) => {
+    // update user
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        joined: data.joined
+      }
+    })
+  }
+
+  //submit change
+  onSubmitSignIn = () => {
+    fetch('http://localhost:3001/register', {
+      method: 'post',
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({
+        email: this.state.email,
+        password: this.state.password,
+        name: this.state.name
+      })
+    })
+      .then(response => response.json())
+      .then( user => {
+        if(user){
+          this.loadUser(user);
+          this.setState({ isRegistered: true})
+        }
+      })
+  }
+
   
 
   render() {
     const { classes, ...rest } = this.props;
     
+    if( this.state.isRegistered === true){
+      return <Redirect to='/home' component={Home}/>
+    }
+
     return (
       <div>
         <Header
@@ -164,7 +210,7 @@ class RegisterPage extends React.Component {
                     </CardBody>
                     <CardFooter className={classes.cardFooter}>
                     <div className={classes.buttonplace}>
-                      <Button className={classes.buttonsingin} size="sm" onChange={this.onSignInChange} >
+                      <Button className={classes.buttonsingin} size="sm" onClick={this.onSubmitSignIn} >
                         Register
                       </Button>
                     </div>

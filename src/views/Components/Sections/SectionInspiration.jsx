@@ -68,6 +68,7 @@ class SectionInspiration extends React.Component{
     
     // first name to render
     componentDidMount(){
+        this.mounted = true
         fetch(`${this.state.apiUrl}/?region=france`)
             .then( res => res.json())
             .then(namedata => {
@@ -82,6 +83,10 @@ class SectionInspiration extends React.Component{
 
         window.addEventListener('keyup', this.onClick, false);
         
+    }
+
+    componentWillUnmount(){
+        this.mounted = false;
     }
 
     renderSelection(){

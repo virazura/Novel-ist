@@ -10,7 +10,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 // @material-ui/icons
 // core components
-import Header from "components/Header/Header.jsx";
+// import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -18,10 +18,11 @@ import Input from "@material-ui/core/Input";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import ButtomNavigation from "@material-ui/core/BottomNavigation"
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction"
+import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
+import HeaderHome from "components/Header/HeaderHome.jsx"
+
+// own component
 import Book from "components/Books/Book.jsx";
-
-
 
 //icon
 import Search from "@material-ui/icons/Search"
@@ -29,20 +30,19 @@ import Visibility from "@material-ui/icons/Visibility";
 import Star from "@material-ui/icons/Star";
 import RestoreIcon from "@material-ui/icons/Restore";
 
-import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
-
+// import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
 
 import homeStyle from "assets/jss/material-kit-react/views/homeStyle.jsx";
-
-
 
 class Home extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        activePage: 3
+        activePage: 3,
+        id: this.props.location.state.id
       }
     }
+
 
     //handle page pagination
     handlePageChange = (pageNumber) => {
@@ -51,20 +51,15 @@ class Home extends React.Component {
         activePage: pageNumber
       })
     }
-    
 
+    
     render() {
         const { classes, ...rest } = this.props;
+        const {id} = this.state;
+        
         return (
           <div>
-            <Header
-                color="montecarlo"
-                brand="Novelist"
-                rightLinks={<HeaderNavLinks navLink1="Story" navLink2="Create Story" />}
-                fixed
-                {...rest}
-                />
-            
+            <HeaderHome id={id}/>
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
                 <FormControl className={classes.searchBook}>

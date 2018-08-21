@@ -1,8 +1,9 @@
 import React from "react";
+import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import {Link } from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
@@ -21,6 +22,8 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
+
 
 import Particles from 'react-particles-js';
 
@@ -57,16 +60,39 @@ const particlesOptions = {
 }
 
 
+
 class LoginPage extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     // we use this to make the card to appear after the page has been rendered
     this.state = {
       cardAnimaton: "cardHidden",
       signInEmail: "",
-      signInPassword: ""
+      signInPassword: "",
+      isSignIn: false,
+      errorLogin: "",
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        joined: ""
+      }
     };
   }
+
+  //load user
+  loadUser = (data) => {
+    // update user
+    this.setState({
+      user: {
+        id: data.id,
+        name: data.name,
+        email: data.email,
+        joined: data.joined
+      }
+    })
+  }
+  
   componentDidMount() {
     // we add a hidden class to the card and after 700 ms we delete it and the transition appears
     setTimeout(
@@ -75,25 +101,53 @@ class LoginPage extends React.Component {
       }.bind(this),
       700
     );
+
   }
 
   // email change
   onEmailChange = (event) => {
     this.setState({ signInEmail : event.target.value})
-    
-  
   }
 
   //password change
   onPasswordChange = (event) => {
     this.setState({ signInPassword : event.target.value})
-    
   }
-  
+
+  //submit change
+  onSubmitSignIn = () => {
+    fetch('http://localhost:3001/signin', {
+      method: 'post',
+      headers: {'Content-Type' : 'application/json'},
+      body: JSON.stringify({
+        email: this.state.signInEmail,
+        password: this.state.signInPassword
+      })
+    })
+      .then(response => response.json())
+      .then( user => {
+        if(user.id){
+          this.loadUser(user)
+          this.setState({ isSignIn: true})
+        }else{
+          this.setState({ errorLogin: "Please check your email and password"})
+        }
+      })
+  }
+
 
   render() {
     const { classes, ...rest } = this.props;
-    
+    const { errorLogin } = this.state;
+
+    if( this.state.isSignIn === true){
+      return <Redirect 
+      to={{
+        pathname: '/home',
+        state: { id: this.state.user.id}
+      }} />
+    }
+
     return (
       <div>
         
@@ -149,11 +203,22 @@ class LoginPage extends React.Component {
                         />
                       </FormControl>
                     </CardBody>
+                    {(errorLogin) ? 
+                      <SnackbarContent 
+                        message={errorLogin}
+                        className={classNames(classes.root, classes.message)}
+                      /> 
+                      : "" 
+                    }
+                    
                     <CardFooter className={classes.cardFooter}>
                     <p className={classes.divider}>Don't have an account?
-                    <Link to="/register-page" className={classes.register}> Register</Link></p>
+                    <Link to='/register-page'>
+                    Register
+                    </Link>
+                    </p>
                     <div className={classes.buttonplace}>
-                      <Button className={classes.buttonsingin} size="sm" onChange={this.onSignInChange} >
+                      <Button className={classes.buttonsingin} size="sm" onClick={this.onSubmitSignIn} >
                     
                         Sign In
                       </Button>
@@ -164,6 +229,7 @@ class LoginPage extends React.Component {
                 </Card>
               </GridItem>
             </GridContainer>
+
           </div>
         </div>
       </div>

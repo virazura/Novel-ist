@@ -1,8 +1,19 @@
 import { defaultFont } from "assets/jss/material-kit-react.jsx";
 
-import tooltip from "assets/jss/material-kit-react/tooltipsStyle.jsx";
-
-const headerNavLinksStyle = theme => ({
+const headerHomeStyle = theme =>  ({
+    root:{
+        flexGrow: 1
+    },
+    brand: {
+        flexGrow: 1
+    },
+    appbar: {
+        background:"#89bcb2",
+    },
+    menuButton:{
+        marginLeft: -12,
+        marginRight: 20
+    },
     list: {
         ...defaultFont,
         fontSize: "14px",
@@ -32,11 +43,8 @@ const headerNavLinksStyle = theme => ({
             backgroundColor: "#e5e5e5"
           }
         }
-      },
-      listItemText: {
-        padding: "0 !important"
-      },
-      navLink: {
+    },
+    navLink: {
         background: "inherit",
         color: "#fff",
         position: "relative",
@@ -65,43 +73,6 @@ const headerNavLinksStyle = theme => ({
           }
         }
       },
-      notificationNavLink: {
-        color: "inherit",
-        padding: "0.9375rem",
-        fontWeight: "400",
-        fontSize: "12px",
-        textTransform: "uppercase",
-        lineHeight: "20px",
-        textDecoration: "none",
-        margin: "0px",
-        display: "inline-flex",
-        top: "4px"
-      },
-      registerNavLink: {
-        top: "3px",
-        position: "relative",
-        fontWeight: "400",
-        fontSize: "12px",
-        textTransform: "uppercase",
-        lineHeight: "20px",
-        textDecoration: "none",
-        margin: "0px",
-        display: "inline-flex"
-      },
-      navLinkActive: {
-        color: "inherit",
-        backgroundColor: "rgba(255, 255, 255, 0.1)"
-      },
-      icons: {
-        width: "20px",
-        height: "20px",
-        marginRight: "3px"
-      },
-      socialIcons: {
-        position: "relative",
-        fontSize: "20px !important",
-        marginRight: "4px"
-      },
       dropdownLink: {
         background:"#89bcb2",
         textDecoration: "none",
@@ -114,16 +85,12 @@ const headerNavLinksStyle = theme => ({
           
         }
       },
-      ...tooltip,
-      marginRight5: {
-        marginRight: "5px"
-      },
-      dropdown:{
-        background:"#89bcb2",
-        margin: "0px",
-        padding: "0px",
+      hoverNavigatin:{
+        "&:hover,&:focus": {
+          background: "#659e93",
+          color: "#fff",
+        }
       }
-      
-    });
+})
 
-export default headerNavLinksStyle;
+export default headerHomeStyle;

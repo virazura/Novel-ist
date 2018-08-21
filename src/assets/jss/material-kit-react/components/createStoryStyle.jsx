@@ -1,7 +1,5 @@
 import { container, title } from "assets/jss/material-kit-react.jsx";
 
-
-
 const createStoryStyle = {
   container:{
       zIndex: "12",
@@ -64,8 +62,9 @@ const createStoryStyle = {
       top: "140px"
   },
   buttonnext:{
-      top: "120px",
-      left: "400px",
+      position: 'absolute',
+      marginTop: "70px",
+      marginLeft: "370px",
       background:"#89bcb2",
       color: "#ffffff",
       "&:hover,&:focus": {
@@ -77,12 +76,12 @@ const createStoryStyle = {
     display: "none",
   },
   uploadcontainer:{
-    maxWidth: 400,
-    height: 380,
+    maxWidth: 390,
+    height: 420,
     marginLeft: "350px"
   },
   buttonupload:{
-    top: "230px",
+    top: "23px",
     left: "110px",
     background:"#9dadc4",
     color: "#ffffff",
@@ -92,7 +91,7 @@ const createStoryStyle = {
     }  
     },
   buttonnextup:{
-    top: "250px",
+    top: 0,
     left: "290px",
     background:"#89bcb2",
     color: "#ffffff",
@@ -118,7 +117,8 @@ const createStoryStyle = {
     padding: "5px",
     borderRadius: "2px",
     height: "80%",
-    color: "#000000"
+    color: "#000000",
+    lineHeight: "5px"
   },
   toolbar:{
     color: "#000000"
@@ -134,7 +134,7 @@ const createStoryStyle = {
     }  
   },
   displaybutton:{
-    diplay: "inline-block"
+    marginTop: '40px'
   },
   buttonadd:{
     background:"#89bcb2",
@@ -144,6 +144,59 @@ const createStoryStyle = {
         color: "#ffffff"
       },
     marginBottom: "30px"  
+  },
+  action:{
+    display: 'inline-flex'
+  },
+  errorSaving: {
+    color: "#e81717",
+    fontSize: "12px",
+    marginTop: '120px',
+    marginLeft: '15px',
+    border: '1px solid #e81717',
+    borderRadius: '5px',
+    fontWeight: 'bold',
+    padding: '5px',
+    position: 'absolute'
+  },
+  errorSavingChap: {
+    color: "#e81717",
+    fontSize: "12px",
+    marginTop: '0px',
+    marginLeft: '320px',
+    border: '1px solid #e81717',
+    borderRadius: '5px',
+    fontWeight: 'bold',
+    padding: '5px',
+    position: 'absolute'
+  },
+  imgPreview: {
+    textAlign: 'center',
+    width: "150px",
+    height: "200px",
+    border: "1px dashed gray",
+    img:{
+      width: "100%",
+      height: "100%"
+    },
+    marginTop: "10px",
+    marginLeft: "100px"
+  },
+  previewText:{
+    width: "100%",
+    marginTop: "90px",
+    color: 'black'
+  },
+  image:{
+    width: "100%",
+    height: "100%"
+  }, 
+  errorMsg:{
+    color: 'red',
+    marginTop: '35px',
+    paddingLeft: '130px',
+    border: '1px solid red',
+    borderRadius: '5px'
   }
   
 };

@@ -3,8 +3,8 @@ import React from "react";
 import classNames from "classnames";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
+import {Redirect} from 'react-router-dom';
 // core components
-import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card"
@@ -16,33 +16,81 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import RadioGroup from "@material-ui/core/RadioGroup";
 import Radio from "@material-ui/core/Radio";
-import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
+import HeaderHome from "components/Header/HeaderHome.jsx"
 
 import editProfileStyle from "assets/jss/material-kit-react/views/editProfileStyle.jsx";
 
 
 class EditProfilePage extends React.Component {
-    state={
-        gender: "female"
+    constructor(props){
+        super(props);
+        this.state={
+            id: this.props.location.state.id,
+            gender: "",
+            name: '',
+            about: '', 
+            saved: false
+        }
     }
 
     //handle change gender selection
     handleChangeGender = e => {
         this.setState({ gender : e.target.value})
     }
+
+    //handle name change
+    handleNameChange = e => {
+        this.setState({ name: e.target.value})
+    }
+
+    //handle about
+    handleAboutChange = e => {
+        this.setState({ about: e.target.value})
+    }
+
+    //handle about
+    handleBirthdayChange = e => {
+        this.setState({ birthday: e.target.value})
+    }
+
+    //handle edit profile page
+    sendEditProfile = () => {
+        fetch('http://localhost:3001/edit-profile', {
+            method: 'put',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.id,
+                name: this.state.name,
+                about: this.state.about,
+                birthday: this.state.birthday,
+                gender: this.state.gender        
+            })
+        })
+        .then( response => response.json())
+        .then( data => {
+            this.setState({
+                name: data.name,
+                about: data.about,
+                birthday: data.birthday,
+                gender: data.gender,
+                saved: true
+            })
+        })
+    }
+
     render() {
         const { classes, ...rest } = this.props;
-        const {gender} = this.state;
-        console.log(gender)
+        const {gender,  saved, id} = this.state;
+        console.log(saved)
+        if(saved === true){
+            return <Redirect to={{
+                pathname: '/profile-page',
+                state: {id: id}
+            }}/>
+        }
         return (
           <div>
-            <Header
-                color="montecarlo"
-                brand="Novelist"
-                rightLinks={<HeaderNavLinks navLink1="Story" navLink2="Create Story" />}
-                fixed
-                {...rest}
-            />
+            <HeaderHome/>
             
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
@@ -68,6 +116,7 @@ class EditProfilePage extends React.Component {
                             fullWidth
                             label="Name"
                             id="name"
+                            onChange={this.handleNameChange}
                             InputProps={{
                                 disableUnderline: true,
                                 classes:{
@@ -84,6 +133,7 @@ class EditProfilePage extends React.Component {
                             fullWidth
                             label="About"
                             id="about"
+                            onChange={this.handleAboutChange}
                             InputProps={{
                                 disableUnderline: true,
                                 classes:{
@@ -99,6 +149,7 @@ class EditProfilePage extends React.Component {
                         />
                         <form className={classes.datepicker} noValidate>
                             <TextField
+                                onChange={this.handleBirthdayChange}
                                 id="date"
                                 label="Birthday"
                                 type="date"
@@ -124,7 +175,8 @@ class EditProfilePage extends React.Component {
                         </FormControl>
                     </CardContent>
                     <CardActions>
-                        <Button size="small" clor="primary" className={classes.buttonsave}>
+                        <Button size="small" clor="primary" className={classes.buttonsave}
+                        onClick={this.sendEditProfile}>
                             Save
                         </Button>
                     </CardActions>

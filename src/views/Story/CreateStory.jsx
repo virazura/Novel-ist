@@ -2,13 +2,11 @@ import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react components for routing our app without refresh
-// import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-
 // @material-ui/icons
 // core components
-import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -21,11 +19,10 @@ import  TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import Button from "@material-ui/core/Button";
-import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
+import HeaderHome from "components/Header/HeaderHome.jsx"
 
 //icon
 import Checkbox from "@material-ui/core/Checkbox";
-
 
 import createStoryStyle from "assets/jss/material-kit-react/components/createStoryStyle.jsx";
 
@@ -33,9 +30,19 @@ class CreateStory extends React.Component {
     constructor(props){
       super(props);
       this.state={
+        title: "",
         category: "",
-        mature: false
+        description: "",
+        mature: false,
+        id: this.props.location.state.id,
+        saved: false,
+        errorSaving: ""
       }
+    }
+
+    //handle title change
+    handleTitleChange = (event) => {
+        this.setState({ title: event.target.value})
     }
 
     //handle category change
@@ -43,28 +50,72 @@ class CreateStory extends React.Component {
         this.setState({ [event.target.name]: event.target.value})
     }
 
+    //handle description change
+    handleDescriptionChange = (event) => {
+        this.setState({ description : event.target.value})
+    }
+
     //handle check mature content
     handleMatureContent = mature => event => {
         this.setState({
             [mature]: event.target.checked
         });
-        console.log(this.state.mature)
+        
     }
-    
+
+    //update user story
+    loadStory = (data) => {
+        this.setState({
+            title: data.title,
+            category: data.category,
+            description: data.description,
+            mature: data.mature
+        })
+    }
+
+    // save data
+    onSaveData = () => {
+        fetch('http://localhost:3001/new-story', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id: this.state.id,
+                title: this.state.title,
+                category: this.state.category,
+                description: this.state.description,
+                mature: this.state.mature
+            })
+        })
+        .then( response => response.json())
+        .then( story => {
+            if( story === 'empty input'){
+                this.setState({
+                    errorSaving: 'Please fill Title Chapter and Content'
+                })
+            }else{
+                this.loadStory(story);
+                this.setState({
+                    saved: true
+                })
+            }
+        })
+    } 
 
     render() {
         const { classes, ...rest } = this.props;
-        const {category} = this.state;
+        const {category, id, errorSaving, saved} = this.state;
+        
+        if(saved === true){
+            return <Redirect 
+            to={{
+                pathname: "/upload-cover-story",
+                state: {id: id}
+            }} />
+        }
+        
         return (
           <div>
-            <Header
-                color="montecarlo"
-                brand="Novelist"
-                rightLinks={<HeaderNavLinks navLink1="Story" navLink2="Create Story" />}
-                fixed
-                {...rest}
-                />
-            
+            <HeaderHome/>
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
                 
@@ -76,6 +127,7 @@ class CreateStory extends React.Component {
                             fullWidth
                             label="Title"
                             id="title"
+                            onChange={this.handleTitleChange}
                             InputProps={{
                                 disableUnderline: true,
                                 classes:{
@@ -92,7 +144,7 @@ class CreateStory extends React.Component {
                         <FormControl className={classes.formcontrol}>
                             <InputLabel htmlFor="Category">Category</InputLabel>
                             <Select
-                                value={category}
+                                value={category  || ''}
                                 onChange={this.handleChangeCategory}
                                 name="category"
                             >
@@ -109,6 +161,7 @@ class CreateStory extends React.Component {
                             fullWidth
                             label="Description"
                             id="description"
+                            onChange={this.handleDescriptionChange}
                             InputProps={{
                                 disableUnderline: true,
                                 classes:{
@@ -127,7 +180,7 @@ class CreateStory extends React.Component {
                             <FormControlLabel
                                 control={
                                     <Checkbox
-                                        checked={this.state.mature}
+                                        checked={this.state.mature ? this.state.mature : ''}
                                         onChange={this.handleMatureContent("mature")}
                                         value="mature"
                                     />
@@ -135,10 +188,17 @@ class CreateStory extends React.Component {
                                 label="Mature Content"
                             />
                         </FormControl>
-
+                        
                     </CardContent>
-                    <CardActions>
-                        <Button size="small" clor="primary" className={classes.buttonnext}>
+                    <CardActions className={classes.action}>
+                        {errorSaving ? 
+                            <div className={classes.errorSaving}>
+                                {errorSaving}
+                            </div>
+                            : 
+                            ""
+                        }
+                        <Button size="small" clor="primary" className={classes.buttonnext} onClick={this.onSaveData}>
                             Next
                         </Button>
                     </CardActions>

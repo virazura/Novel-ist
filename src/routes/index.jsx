@@ -1,3 +1,4 @@
+
 import LandingPage from "views/Components/LandingPage.jsx";
 import ProfilePage from "views/ProfilePage/ProfilePage.jsx";
 import EditProfilePage from "views/ProfilePage/EditProfile.jsx";
@@ -15,7 +16,7 @@ var indexRoutes = [
   { path: "/profile-page", name: "ProfilePage", component: ProfilePage },
   { path: "/edit-profile-page", name: "EditProfilePage", component: EditProfilePage },
   { path: "/login-page", name: "LoginPage", component: LoginPage },
-  { path: "/register-page", name: "RegisterPage", component: RegisterPage},
+  { path: "/register-page", name: "RegisterPage", component: RegisterPage },
   { path: "/home", name: "Home", component: Home},
   { path: "/create-new-story", name: "Create New Story", component: CreateStory},
   { path: "/upload-cover-story", name: "Upload Cover Story", component: UploadCover},

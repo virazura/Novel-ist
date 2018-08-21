@@ -24,7 +24,9 @@ function HeaderLinks({ ...props }) {
     
         <List className={classes.list}>
           <ListItem className={classes.listItem}>
-          <NavHashLink to="/#about" scroll={el => el.scrollIntoView({behavior: "smooth"})}>
+          <NavHashLink to="/#about" 
+          scroll={el => el.scrollIntoView({behavior: "smooth"})}
+          >
             <Button
                 color="transparent" 
                 className={classes.navLink}

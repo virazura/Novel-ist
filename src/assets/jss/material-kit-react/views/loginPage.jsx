@@ -88,7 +88,7 @@ const signupPageStyle = {
   },
   buttonplace:{
     marginLeft: "100px",
-    marginTop: "30px"
+    marginTop: "20px"
   },
   signinform:{
     marginTop: "20px"
@@ -98,6 +98,16 @@ const signupPageStyle = {
   },
   passwordlabel:{
     marginTop: "50px"
+  },
+  root:{
+    marginTop: "8px",
+    backgroundColor: "#f41d1d",
+    padding: "0px",
+    color: "#ffffff",
+    textAlign: "center"
+  },
+  message:{
+    paddingLeft: "48px"
   }
 };
 
