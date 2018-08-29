@@ -1,10 +1,11 @@
 import React from "react";
 // nodejs library that concatenates classes
-// import classNames from "classnames";
+import classNames from "classnames";
 
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import Picker from "components/Picker/Picker.jsx";
+import Typography from "@material-ui/core/Typography";
 import NameGenerator from "components/Generator/NameGenerator/NameGenerator.jsx";
 import QuotesGenerator from "components/Generator/QuotesGenerator/QuotesGenerator.jsx";
 import FindPicture from "components/Generator/FindPicture/FindPicture.jsx";
@@ -24,10 +25,10 @@ class SectionInspiration extends React.Component{
             region: "",
             gender: "",
             apiUrl: "https://uinames.com/api",
-            selection: ""
+            selection: "", 
+            errorMsg: ""
             
         }
-
         this.onClick = this.onClick.bind(this)
     }
     
@@ -68,26 +69,34 @@ class SectionInspiration extends React.Component{
     
     // first name to render
     componentDidMount(){
-        this.mounted = true
+        this._isMounted = true;
         fetch(`${this.state.apiUrl}/?region=france`)
             .then( res => res.json())
             .then(namedata => {
+                if(this._isMounted){
                 this.setState({
                     name: namedata.name,
                     surname: namedata.surname
                 })
+                }else{
+                    this.setState({
+                        errorMsg: "Slow Internet Connection"
+                    })
+                }
             })
             .catch(err => 
-                console.log(err)
+                this.setState({
+                    errorMsg: "Slow Internet Connection"
+                })
             )
-
         window.addEventListener('keyup', this.onClick, false);
-        
     }
 
     componentWillUnmount(){
-        this.mounted = false;
+        this._isMounted = false;
     }
+
+    
 
     renderSelection(){
         switch(this.state.selection){
@@ -108,9 +117,10 @@ class SectionInspiration extends React.Component{
 
     render(){
         const { classes } = this.props;
-        
+        const { errorMsg } = this.state;
         return(
-            <div className={classes.inspirationContainer} id="inspiration">
+            <div className={classNames(classes.main,classes.mainRaised)} id="inspiration">
+                <div className={classes.inspirationContainer}>
                 <h2 className={classes.title}>Inspiration</h2> 
                 <p className={classes.infoText}>Pada bagian inspiration ini, user dapat memilih beberapa konten inspirasi seperti Name Generator dimana user bisa mendapatkan nama-nama dari beberapa negara dengan memilih gender (jenis kelamain) setelah itu memilih negara, kemudian Quotes Generator dimana user bisa mendapatkan quotes-quotes atau kutipan-kutipan dari beberapa tokoh diseluruh dunia, dan yang terakhir user dapat mencari gambar-gambar sebagai inspirasi.</p>
                 <div className={classes.picker}>
@@ -125,11 +135,12 @@ class SectionInspiration extends React.Component{
                         </Grid>
                         <Grid item xs={9}> 
                             <div className={classes.generatorContainer}>
-                                {this.renderSelection()} 
+                               { (errorMsg) ? 
+                               <Typography className={classes.errorMsg} variant="display2" >{errorMsg}</Typography> : this.renderSelection() }
                             </div>
                         </Grid>
                     </Grid>
-                    
+                </div> 
                 </div>
             </div>
         );

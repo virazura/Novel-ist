@@ -25,6 +25,9 @@ const inspirationStyle = {
     generatorContainer: {
         backgroundColor: "#bbdbd5",
         borderRadius: "10px"
+    },
+    errorMsg:{
+        color: "#000000"
     }
 }
 

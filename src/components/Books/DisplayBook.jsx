@@ -2,6 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Link } from "react-router-dom";
+
+// nodejs library that concatenates classes
+// import classNames from "classnames";
 // core components
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -18,14 +21,13 @@ import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 import Muted from "components/Typography/Muted.jsx";
 import Likes from "./FavoriteButton";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import IconButton from "@material-ui/core/IconButton";
+
 //icons
 import Eye from "@material-ui/icons/RemoveRedEye";
 import List from "@material-ui/icons/List";
 import Copy from "@material-ui/icons/Copyright";
-import Setting from "@material-ui/icons/MoreVert";
+import Add from "@material-ui/icons/Add";
+import Done from "@material-ui/icons/Done";
 
 
 // style
@@ -37,17 +39,15 @@ function Transition(props){
     return <Slide direction="down" {...props}/>
 }
 
-const ITEM_HEIGHT = 20;
 
-class Book extends React.Component  {
+class DisplayBook extends React.Component  {
     constructor(props){
         super(props);
         this.state={
             open: false,
             bookId: this.props.id_book,
-            visit: false,
-            cover: "", 
-            anchorEl: null
+            visit: false, 
+            added: false
         }
     }
 
@@ -73,39 +73,6 @@ class Book extends React.Component  {
     this.setState({ open: false });
     };
 
-    handleSetting = (event) => {
-        this.setState({
-            anchorEl: event.currentTarget
-        })
-    }
-
-    handleSettingClose = () => {
-        this.setState({
-            anchorEl: null
-        })
-    }
-
-    //delete bok
-    handleDeleteBook = () => {
-        fetch('http://localhost:3001/delete-book',{
-            method: 'post',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({
-                id_book: this.state.bookId
-            })
-        })
-        .then( res => res.json())
-        .then( del => {
-            console.log(del)
-            this.setState({
-                isDeleted: true
-            })
-            console.log('isdeleted', this.state.isDeleted)
-            this.props.isDeleted(this.state.bookId)
-        })
-        
-    }
-
     //handle book data
     handleBookData = (data) => {
         this.setState({
@@ -116,6 +83,24 @@ class Book extends React.Component  {
         })
     }
 
+    //handle insert book
+    insertBookToLibrary = () => {
+        fetch('http://localhost:3001/insert-to-library', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id_book: this.state.bookId,
+                id: this.props.id
+            })
+        })
+        .then(response => response.json())
+        .then( add => {
+            console.log('insert to library', add)
+            this.setState({
+                added: true
+            })
+        })
+    }
 
     componentDidMount(){
         this._isMounted = true;
@@ -170,8 +155,7 @@ class Book extends React.Component  {
 
     render(){
         const { classes, id } = this.props;
-        const {titleBook, description, mature, cover, bookId, totalChapter, visit, views, anchorEl} = this.state;
-        const open = Boolean(anchorEl);
+        const {titleBook, description, mature, cover, bookId, totalChapter, visit, views, added} = this.state;
         
         
     return(
@@ -197,39 +181,6 @@ class Book extends React.Component  {
                     <Likes id_book={bookId}/>
                     <List  className={classes.icon} />
                         <p className={classes.iconText}>{totalChapter} </p>
-                    <IconButton 
-                        className={classes.likes}
-                        aria-label="More"
-                        aria-owns={ open ? 'menu' : null}
-                        aria-haspopup="true"
-                        onClick={this.handleSetting}
-                    >
-                        <Setting className={classes.icon}/>
-                    </IconButton>
-                    <Menu
-                        id="menu"
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={this.handleSettingClose}
-                        PaperProps={{
-                            style:{
-                                maxHeight: ITEM_HEIGHT * 4.5,
-                                width: 90
-                            }
-                        }}
-                    >
-                        <MenuItem className={classes.menuitem} onClick={this.handleSettingClose}>
-                            <Link to={{
-                                pathname: '/chapter-info',
-                                state: {id_book: bookId, id:id}
-                            }}>
-                            <Button>Edit</Button>
-                            </Link>
-                        </MenuItem>
-                        <MenuItem  className={classes.menuitem} onClick={this.handleSettingClose}>
-                            <Button onClick={this.handleDeleteBook}>Delete</Button>
-                        </MenuItem>
-                    </Menu>
                 </CardActions>
             </Card>
             
@@ -271,7 +222,7 @@ class Book extends React.Component  {
                     <DialogActions className={classes.dialogButton}>
                             <Link
                                 to={{
-                                    pathname: `/read-story`,
+                                    pathname: '/read-story',
                                     state:{
                                         id_book: bookId,
                                         id: id, 
@@ -283,18 +234,23 @@ class Book extends React.Component  {
                             Read
                             </Button>
                             </Link>
+                        <Button variant="contained" size="small" className={classes.addbutton} onClick={this.insertBookToLibrary} aria-label="Add">
+                            {added ? <Done/> : <Add/>}
+                        </Button>
                     </DialogActions>
                 </Dialog>
                 </div>
         </div>
     );
     }
+    
+
 }
 
-Book.propTypes = {
+DisplayBook.propTypes = {
     classes: PropTypes.object.isRequired,
     className: PropTypes.string
 }
 
 
-export default withStyles(bookStyle)(Book);
+export default withStyles(bookStyle)(DisplayBook);

@@ -8,7 +8,6 @@ import { NavHashLink } from "react-router-hash-link";
 import withStyles from "@material-ui/core/styles/withStyles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import Tooltip from "@material-ui/core/Tooltip";
 
 
 // core components
@@ -46,22 +45,12 @@ function HeaderLinks({ ...props }) {
           </NavHashLink>
           </ListItem>
           <ListItem className={classes.listItem}>
-          <NavHashLink to="/#inspiration" scroll={el => el.scrollIntoView({behavior: "smooth"})}>
-            <Button
-              color="transparent" 
-              className={classes.navLink}
-            >
-              {props.navLink3}
-            </Button>
-          </NavHashLink>
-          </ListItem>
-          <ListItem className={classes.listItem}>
           <Link to="/login-page">
             <Button
               color="transparent" 
               className={classes.navLink}
             >
-              {props.navLink4}
+              {props.navLink3}
             </Button>
           </Link>
           </ListItem>

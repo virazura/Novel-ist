@@ -1,7 +1,7 @@
 const bookStyle = {
     card: {
-        width: "180px",
-        height: "300px",
+        width: "190px",
+        height: "320px",
         boxShadow: "2px 2px 8px 0px rgba(0, 0, 0, 0.2)"
     },
     avatar:{
@@ -42,7 +42,7 @@ const bookStyle = {
     imgDialog: {
         width: "150px",
         height: "200px",
-        marginLeft: "75px"
+        marginLeft: "25px"
     },
     titleBook: {
         textAlign: "center",
@@ -81,6 +81,28 @@ const bookStyle = {
         color: "#ffffff"
         },  
         padding: "1px"
+    }, 
+    likes:{
+        position: "relative",
+        display: "inline-block",
+        verticalAlign: "middle",
+        cursor: "pointer", 
+        '& svg':{
+            fontSize: "20px"
+        }
+    },
+    iconTextFav: {
+        fontSize: "13px",
+        color: "#000000",
+        marginTop: "10px",
+        marginLeft: "10px"
+    }, 
+    root:{
+        width:"300px"
+    },
+    menuitem:{
+        height: "10px",
+        paddingLeft: "0px"
     }
     
 }

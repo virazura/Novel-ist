@@ -81,9 +81,9 @@ class FindPicture extends React.Component{
                         >   
                             <MenuItem value={5}>5</MenuItem>
                             <MenuItem value={10}>10</MenuItem>
-                            <MenuItem value={15}>15</MenuItem>
                             <MenuItem value={30}>30</MenuItem>
                             <MenuItem value={50}>50</MenuItem>
+                            <MenuItem value={80}>80</MenuItem>
                         </Select>
                     </FormControl>
                 </div>

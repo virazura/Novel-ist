@@ -35,6 +35,9 @@ class CreateStory extends React.Component {
         description: "",
         mature: false,
         id: this.props.location.state.id,
+        selectedFile : '', 
+        imagePreviewUrl: '',
+        imageData: '',
         saved: false,
         errorSaving: ""
       }
@@ -63,13 +66,47 @@ class CreateStory extends React.Component {
         
     }
 
+    //handle image change
+    handleImageChange = (e) => {
+        e.preventDefault();
+        let reader = new FileReader();
+        let file = e.target.files[0];
+
+        reader.onloadend = () =>{
+            this.setState({
+                selectedFile:file,
+                imagePreviewUrl: reader.result
+            });
+        };
+        reader.readAsDataURL(file);
+        this.handleUploadCover(e.target.files[0]);
+    }
+
+    //upload cover
+    handleUploadCover = (file) => {
+        let form = new FormData(this.refs.myForm);
+        form.append('myImage', file);
+        fetch('http://localhost:3001/upload-cover', {
+            method: 'post',
+            body: form
+        })
+        .then( res =>res.json())
+        .then(data => {
+            this.setState({
+                imageData: data.file
+            })
+            
+        })
+    };
+
     //update user story
     loadStory = (data) => {
         this.setState({
             title: data.title,
             category: data.category,
             description: data.description,
-            mature: data.mature
+            mature: data.mature,
+            imageData: data.cover
         })
     }
 
@@ -83,39 +120,51 @@ class CreateStory extends React.Component {
                 title: this.state.title,
                 category: this.state.category,
                 description: this.state.description,
-                mature: this.state.mature
+                mature: this.state.mature,
+                imageData: this.state.imageData
             })
         })
         .then( response => response.json())
         .then( story => {
             if( story === 'empty input'){
                 this.setState({
-                    errorSaving: 'Please fill Title Chapter and Content'
+                    errorSaving: 'Please fill all the fields'
                 })
             }else{
                 this.loadStory(story);
                 this.setState({
-                    saved: true
+                    saved: true,
+                    id_book: story.id_book
                 })
             }
         })
     } 
 
-    render() {
-        const { classes, ...rest } = this.props;
-        const {category, id, errorSaving, saved} = this.state;
+    render(){
+        // eslint-disable-next-line
+        const { classes, ...rest } = this.props;   
+        const {category, id, id_book, errorSaving, saved, imagePreviewUrl} = this.state;
         
+        let $imagePreview = null;
+        if(imagePreviewUrl){
+            $imagePreview = <img style={{width: "100%", height: "100%"}} src={imagePreviewUrl} alt='cover'/>;
+        }else{
+            $imagePreview = (
+                <div className={classes.previewText}>Please select cover</div>
+            );
+        }
+
         if(saved === true){
             return <Redirect 
             to={{
-                pathname: "/upload-cover-story",
-                state: {id: id}
+                pathname: "/create-chapter",
+                state: {id: id, id_book : id_book}
             }} />
         }
         
         return (
           <div>
-            <HeaderHome/>
+            <HeaderHome id={id}/>
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
                 
@@ -123,6 +172,22 @@ class CreateStory extends React.Component {
                 <h2 className={classes.title}>Make A New Story</h2>
                 <Card className={classes.storycontainer}>
                     <CardContent>
+                        <div className={classes.imgPreview}>{$imagePreview}</div>
+                            <form ref='myForm' encType='multipart/form-data'>
+                                <input 
+                                    accept="image/*"
+                                    className={classes.input}
+                                    id="raised-button-file"
+                                    multiple
+                                    type="file"
+                                    onChange={ e => this.handleImageChange(e)}
+                                />
+                            </form>
+                            <label htmlFor="raised-button-file">
+                                <Button component="span" className={classes.buttonupload}>
+                                Choose Image
+                                </Button>
+                            </label>
                         <TextField 
                             fullWidth
                             label="Title"

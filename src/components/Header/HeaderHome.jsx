@@ -1,7 +1,7 @@
 import React from 'react';
 import withStyles from "@material-ui/core/styles/withStyles";
 // react components for routing our app without refresh
-import { Link, Redirect } from "react-router-dom";
+import { Link} from "react-router-dom";
 //component
 import AppBar from "@material-ui/core/AppBar";
 import Button from "@material-ui/core/Button";
@@ -36,6 +36,7 @@ class HeaderHome extends React.Component{
     }
     
     render(){
+        // eslint-disable-next-line
         const { classes,idUser, ...rest } = this.props;
         const { id } = this.state;
         

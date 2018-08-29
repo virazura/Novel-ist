@@ -11,7 +11,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
 // core components
 // import Header from "components/Header/Header.jsx";
-import Footer from "components/Footer/Footer.jsx";
+
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
@@ -19,43 +19,97 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import ButtomNavigation from "@material-ui/core/BottomNavigation"
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import HeaderHome from "components/Header/HeaderHome.jsx"
+import Footer from "components/Footer/Footer.jsx";
+import Scroll from "components/Scroll/Scroll";
 
 // own component
-import Book from "components/Books/Book.jsx";
+import DisplayBook from "components/Books/DisplayBook.jsx";
 
 //icon
 import Search from "@material-ui/icons/Search"
 import Visibility from "@material-ui/icons/Visibility";
-import Star from "@material-ui/icons/Star";
+import Favorite from "@material-ui/icons/Favorite";
 import RestoreIcon from "@material-ui/icons/Restore";
 
-// import HeaderNavLinks from "components/Header/HeaderNavLinks.jsx";
 
 import homeStyle from "assets/jss/material-kit-react/views/homeStyle.jsx";
+import HeaderHome from "components/Header/HeaderHome.jsx";
 
 class Home extends React.Component {
     constructor(props){
       super(props);
       this.state={
         activePage: 3,
-        id: this.props.location.state.id
+        value: 0,
+        id: this.props.location.state.id, 
+        idBook: [],
+        title: "",
+        searchBook: ''
       }
     }
 
 
-    //handle page pagination
-    handlePageChange = (pageNumber) => {
-      console.log(`active page is ${pageNumber}`)
+    loadIdBook = (data) => {
       this.setState({
-        activePage: pageNumber
+        idBook: data.id_book
+      })
+    }
+
+    componentDidMount(){
+      this._isMounted = true;
+      fetch('http://localhost:3001/display-book', {
+        method: 'post', 
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+          value: this.state.value
+        })
+      })
+      .then(response => response.json())
+      .then( data => {
+        this.loadIdBook(data)
+      })
+    }
+
+    componentWillMount(){
+      this._isMounted = false;
+    }
+
+    handleChangeBottomNav = (event, value) => {
+      this.setState({value })
+      this.renderBook(value)
+      if(value === 0){
+        this.setState({ title: "Popular"})
+      }else if(value === 1){
+        this.setState({ title: "Most Likes"})
+      }else{
+        this.setState({ title: "Newest"})
+      }
+    }
+
+    //render book
+    renderBook = (value) => {
+      fetch('http://localhost:3001/display-book', {
+        method: 'post', 
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify({
+          value: value
+        })
+      })
+      .then(response => response.json())
+      .then( data => {
+        this.loadIdBook(data)
       })
     }
 
     
     render() {
-        const { classes, ...rest } = this.props;
-        const {id} = this.state;
+        // eslint-disable-next-line
+        const { classes, ...rest } = this.props; 
+        const {id, value, idBook} = this.state;
+
+        const displaybook = idBook.map( (id_book, i) => {
+          return <DisplayBook key={`id_book-${i}`} id_book={id_book} id={this.state.id}/>
+        })
         
         return (
           <div>
@@ -82,30 +136,21 @@ class Home extends React.Component {
                     <ButtomNavigation 
                       className={classes.root}
                       showLabels
+                      value={value}
+                      onChange={this.handleChangeBottomNav}
                     >
                       <BottomNavigationAction className={classes.iconbottom} label="Popular" icon={<Visibility/>}/>
-                      <BottomNavigationAction className={classes.iconbottom} label="Highest Rate" icon={<Star/>}/>
+                      <BottomNavigationAction className={classes.iconbottom} label="Most Likes" icon={<Favorite/>}/>
                       <BottomNavigationAction className={classes.iconbottom} label="Newest" icon={<RestoreIcon/>}/>
                     </ButtomNavigation>
                 </div>
 
-                <h2 className={classes.title}>Popular</h2>
+                <h2 className={classes.title}>Collection of Books</h2>
                 <div> className={classes.bookcontainer}>
-                  <Book/>
-                  
+                <Scroll>
+                  {displaybook}
+                </Scroll>
                 </div>
-                
-                <Pagination
-                    activePage={this.state.activePage}
-                    itemsCountPerPage={10}
-                    totalItemsCount={450}
-                    pageRangeDisplayed={5}
-                    onChange={this.handlePageChange}
-                    innerClass={classes.innerClass}
-                    itemClass={classes.itemClass}
-                    linkClass={classes.linkClass}
-                    activeClass={classes.activeClass}
-                  />
                 
               </div>
             </div>

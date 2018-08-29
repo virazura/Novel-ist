@@ -23,7 +23,7 @@ import { EditorState , convertToRaw} from 'draft-js';
 import createStoryStyle from "assets/jss/material-kit-react/components/createStoryStyle.jsx";
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-class CreateChapter extends React.Component {
+class EditChapter extends React.Component {
     constructor(props){
       super(props);
       this.state={
@@ -46,30 +46,57 @@ class CreateChapter extends React.Component {
     //handle title change
     onTitleChange = (event) => {
         this.setState({
+            
             titleChapter: event.target.value
         })
-    }
 
+    }
 
     //load data chapter 
     loadChapter = (data) => {
         this.setState({
             titleChapter: data.titleChapter,
-            editorState: data.editorState,
-            id_chapter: data.id_chapter
+            editorState: data.editorState
         })
     }
 
+    //get chapter
+    componentDidMount(){
+        this._isMounted = true;
+        fetch('http://localhost:3001/edit-chapter', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({
+                id_chapter: this.props.location.state.idChapter,
+                id_book: this.state.id_book,
+                titleCh: this.props.location.state.titleChap
+            })
+        })
+        .then( response => response.json())
+        .then( data => {
+            if(this._isMounted){
+                this.setState({
+                    titleChapter: data.titlechapter,
+                    contentCh: data.content
+                })
+            }
+        })
+    }
+
+    componentWillUnmount(){
+        this._isMounted = false;
+    }
 
     //save data
     onSaveData = () => {
         const convertedData = convertToRaw(this.state.editorState.getCurrentContent());
-        fetch('http://localhost:3001/new-chapter', {
-            method: 'post',
+        fetch('http://localhost:3001/edit-chapter-data', {
+            method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                id: this.state.id,
-                id_book: this.state.id_book,
+                id_chapter: this.props.location.state.idChapter,
+                id_book: this.props.location.state.id_book,
+                titleCh: this.props.location.state.titleChap,
                 editorState: convertedData,
                 titleChapter: this.state.titleChapter,
                 status: this.state.saved
@@ -93,11 +120,13 @@ class CreateChapter extends React.Component {
     //published data
     onPublishData = () => {
         const convertedData = convertToRaw(this.state.editorState.getCurrentContent());
-        fetch('http://localhost:3001/new-chapter',{
-            method: 'post',
+        fetch('http://localhost:3001/edit-chapter-data',{
+            method: 'put',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({
-                id: this.state.id,
+                id_chapter: this.props.location.state.idChapter,
+                id_book: this.props.location.state.id_book,
+                titleCh: this.props.location.state.titleChap,
                 editorState: convertedData,
                 titleChapter: this.state.titleChapter,
                 status: this.state.published              
@@ -122,8 +151,8 @@ class CreateChapter extends React.Component {
     render() {
         // eslint-disable-next-line
         const { classes, ...rest } = this.props; 
-        const {editorState, id, id_book, errorSaving, isSaved} = this.state;
-
+        const {editorState, id, id_book, errorSaving, isSaved, titleCh, contentCh} = this.state;
+        
         if(isSaved === true){
             return <Redirect
                         to={{
@@ -139,13 +168,14 @@ class CreateChapter extends React.Component {
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
                 <div className={classes.storymargin}>
-                <h2 className={classes.title}>New Chapter</h2>
+                <h2 className={classes.title}>Edit Chapter</h2>
                 <Card className={classes.chaptercontainer}>
                     <CardContent>
                         <TextField 
                             fullWidth
                             label=" New Chapter Title"
                             id="chapter-title"
+                            value={this.state.titleChapter || ""}
                             onChange={this.onTitleChange}
                             InputProps={{
                                 disableUnderline: true,
@@ -158,7 +188,9 @@ class CreateChapter extends React.Component {
                                 className: classes.titleformlabel
                             }}
                             margin="normal"
-                        />
+                        >
+                        {titleCh ? titleCh : '' }
+                        </TextField>
                     
                     <Editor 
                         editorState={editorState}
@@ -167,6 +199,8 @@ class CreateChapter extends React.Component {
                         toolbarClassName={classes.toolbar}
                         placeholder="Begin typing..."
                         onEditorStateChange={this.onEditorStateChange}
+                        contentState={contentCh}
+                                     
                     />
                     </CardContent>
                     {errorSaving ? 
@@ -198,4 +232,4 @@ class CreateChapter extends React.Component {
       }
 }
 
-export default withStyles(createStoryStyle)(CreateChapter);
+export default withStyles(createStoryStyle)(EditChapter);

@@ -7,7 +7,7 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider"
-import {EditorState, convertFromRaw } from "draft-js";
+
 //style
 import StoryStyle from "assets/jss/material-kit-react/views/readStoryStyle.jsx";
 
@@ -16,7 +16,7 @@ class StoryList extends React.Component{
         super(props);
         this.state={
             selectedChapter: "",
-            id: this.props.id,
+            id_book: this.props.id_book,
             titleChapterList: [],
             titleStory: '',
             // content: []
@@ -31,7 +31,7 @@ class StoryList extends React.Component{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            id: this.state.id,                   
+            id_book: this.state.id_book,                   
         })
         })
         .then(response => response.json())
@@ -50,7 +50,7 @@ class StoryList extends React.Component{
         method: 'post',
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({
-            id: this.state.id, 
+            id_book: this.state.id_book, 
             chapter: this.state.selectedChapter                  
         })
         })
@@ -76,12 +76,10 @@ class StoryList extends React.Component{
     render(){
         const {classes} = this.props;
         const {titleChapterList, titleStory} = this.state;
-        console.log('id',this.state.id)
-        console.log('content',this.state.content)
         
         const storyList = titleChapterList.map( (title, i) => {
             return (
-                <div key={`item-${title}`}>
+                <div key={`item-${title}-${i}`}>
                     <ListItem 
                         onClick={(e) => this.getChapter(e, title)}
                         className={ classes.listchapter}

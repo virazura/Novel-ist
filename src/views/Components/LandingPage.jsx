@@ -18,7 +18,6 @@ import Parallax from "components/Parallax/Parallax.jsx";
 // sections for this page
 import HeaderLinks from "components/Header/HeaderLinks.jsx";
 import SectionAbout from "./Sections/SectionAbout.jsx";
-import SectionDiscover from "./Sections/SectionDiscover.jsx";
 import SectionInspiration from "./Sections/SectionInspiration.jsx";
 import landingPageStyle from "assets/jss/material-kit-react/views/landingPageStyle.jsx";
 
@@ -32,9 +31,9 @@ class LandingPage extends React.Component {
     return (
       <div>
         <Header
-          brand="Novel-ist"
+          brand="Nove-list"
           rightLinks={<HeaderLinks 
-            navLink1="About" navLink2="Discover" navLink3="Inspiration" navLink4="Login"/>}
+            navLink1="About" navLink2="Inspiration"  navLink3="Login"/>}
           fixed
           color="transparent"
           changeColorOnScroll={{
@@ -53,6 +52,7 @@ class LandingPage extends React.Component {
                     <p> wings to the mind</p>
                     <p> flight to the imagination</p>
                     <p> and life to everything </p>
+                    <p> -Plato</p>
                   </h3>
                 </div>
               </GridItem>
@@ -62,7 +62,6 @@ class LandingPage extends React.Component {
 
         <div className={classNames(classes.main, classes.mainRaised)}>
           <SectionAbout />
-          <SectionDiscover/>
           <SectionInspiration />
         </div>
         <Footer />

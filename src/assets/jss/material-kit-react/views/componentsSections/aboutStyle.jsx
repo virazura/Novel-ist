@@ -16,7 +16,8 @@ const aboutStyle = {
     },
     aboutcontainer: {
         width: "100%",
-        height: "300px"
+        height: "300px",
+        background: "rgba(137, 188, 178, 0.6)"
     }
 }
 

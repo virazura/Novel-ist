@@ -3,14 +3,13 @@ import React from "react";
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { Redirect } from "react-router-dom";
+import classNames from "classnames";
 // @material-ui/icons
 import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
 import People from "@material-ui/icons/People";
 // core components
-import Header from "components/Header/Header.jsx";
-import HeaderLinks from "components/Header/HeaderLinks.jsx";
-
+import EmptyHeader from "components/Header/EmptyHeader.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
@@ -21,7 +20,7 @@ import CardFooter from "components/Card/CardFooter.jsx";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
-import Home from "views/Home/Home.jsx";
+import SnackbarContent from "@material-ui/core/SnackbarContent";
 
 import Particles from 'react-particles-js';
 //style
@@ -31,10 +30,10 @@ import registerPageStyle from "assets/jss/material-kit-react/views/registerPage.
 const particlesOptions = {
   particles: {
     number: {
-      value: 200,
+      value: 150,
       density: {
         enable: true,
-        value_area: 800
+        value_area: 400
       }
     },
     move:{
@@ -66,6 +65,7 @@ class RegisterPage extends React.Component {
       email: "",
       password: "",
       name: "",
+      errorRegister: "",
       isRegistered: false,
       user: {
         id: "",
@@ -127,8 +127,10 @@ class RegisterPage extends React.Component {
     })
       .then(response => response.json())
       .then( user => {
-        if(user){
-          this.loadUser(user);
+        if(user === "Empty input"){
+          this.setState({ errorRegister: "Please fill all the fields"})
+        }else{
+          this.loadUser(user.id);
           this.setState({ isRegistered: true})
         }
       })
@@ -137,21 +139,16 @@ class RegisterPage extends React.Component {
   
 
   render() {
+    // eslint-disable-next-line
     const { classes, ...rest } = this.props;
-    
+    const { errorRegister } = this.state
     if( this.state.isRegistered === true){
-      return <Redirect to='/home' component={Home}/>
+      return <Redirect to={{pathname: '/home', state:{id: this.state.user.id }}} />
     }
 
     return (
       <div>
-        <Header
-          fixed
-          color="montecarlo"
-          brand="Novel-list"
-          rightLinks={<HeaderLinks  navLink1="" navLink2="" navLink3="" navLink4=""/>}
-          {...rest}
-        />
+        <EmptyHeader/>
         <div
           className={classes.pageHeader}
         >
@@ -208,6 +205,13 @@ class RegisterPage extends React.Component {
                         />
                       </FormControl>
                     </CardBody>
+                    {(errorRegister) ? 
+                      <SnackbarContent 
+                        message={errorRegister}
+                        className={classNames(classes.root, classes.message)}
+                      /> 
+                      : "" 
+                    }
                     <CardFooter className={classes.cardFooter}>
                     <div className={classes.buttonplace}>
                       <Button className={classes.buttonsingin} size="sm" onClick={this.onSubmitSignIn} >

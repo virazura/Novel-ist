@@ -22,33 +22,38 @@ class ChapterInfo extends React.Component {
     constructor(props){
       super(props);
       this.state={
-        id: this.props.location.state.id,
+        isDelete: false
       }
     }
 
+    //check if table deleted
+    isDeleted = (isDelete) => {
+      this.setState({isDelete})
+    } 
+
     render() {
-        const { classes, ...rest } = this.props;
-        const {id} = this.state;
+        // eslint-disable-next-line
+        const { classes, ...rest } = this.props; 
+        const { id_chapter, id, id_book } = this.props.location.state;
+        console.log("info",this.state.isDelete)
         return (
           <div>
-            <HeaderHome/>
-            
+            <HeaderHome id={id}/>
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
-                
                 <div className={classes.storymargin}>
                   <h2 className={classes.title}>Chapter Information</h2>
                   <div className={classes.tablescontainer}>
                     <Link to={{
                       pathname: '/create-chapter',
-                      state: {id : id}
+                      state: {id : id, id_book: id_book}
                     }}
                     >
                       <Button variant="fab" aria-label="add" className={classes.buttonadd}>
                           <AddIcon/>
                       </Button>
                     </Link>
-                    <TableChapter id={id}/>
+                    <TableChapter id={id} id_book={id_book} id_chapter={id_chapter} onDelete= {this.isDelete}/>
                   </div>
                 </div>
               </div>

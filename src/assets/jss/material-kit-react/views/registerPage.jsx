@@ -99,6 +99,16 @@ const registerPageStyle = {
   },
   emaillabel:{
       marginTop: "50px"
+  },
+  root:{
+    marginTop: "8px",
+    backgroundColor: "#f41d1d",
+    padding: "0px",
+    color: "#ffffff",
+    textAlign: "center"
+  },
+  message:{
+    paddingLeft: "100px"
   }
 };
 

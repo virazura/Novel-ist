@@ -33,11 +33,11 @@ const createStoryStyle = {
       boxShadow: "0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0  8px 10px -5px rgba(0, 0, 0, 0.2)"
   },
   footer:{
-    marginTop: "0px"
+    marginTop: "70px"
   },
   storycontainer:{
       maxWidth: 500,
-      height: 480,
+      height: 750,
       marginLeft: "300px"
   },
   titleinput:{
@@ -81,8 +81,9 @@ const createStoryStyle = {
     marginLeft: "350px"
   },
   buttonupload:{
-    top: "23px",
-    left: "110px",
+    top: "10px",
+    left: "160px",
+    marginBottom: "10px",
     background:"#9dadc4",
     color: "#ffffff",
     "&:hover,&:focus": {
@@ -152,7 +153,7 @@ const createStoryStyle = {
     color: "#e81717",
     fontSize: "12px",
     marginTop: '120px',
-    marginLeft: '15px',
+    marginLeft: '140px',
     border: '1px solid #e81717',
     borderRadius: '5px',
     fontWeight: 'bold',
@@ -180,7 +181,7 @@ const createStoryStyle = {
       height: "100%"
     },
     marginTop: "10px",
-    marginLeft: "100px"
+    marginLeft: "150px"
   },
   previewText:{
     width: "100%",

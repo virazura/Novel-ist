@@ -80,10 +80,10 @@ class Footer extends React.Component {
                   <DialogTitle id="copyright">{"Pedoman Kontent Cerita"}</DialogTitle>
                   <DialogContent>
                     <DialogContentText id="pelanggaran-copyright" className={classes.copyrighttext}>
-                      Pelanggaran copyright adalah pelanggaran yang menyangkut tentang hak milik seseorang. Jika pengguna Novel-list mempublikasikan karya milik orang lain, maka pihak Novel-list tidak bertanggung jawab. Hal-hal yang termasuk dalam pelanggaran antara lain adaptasi atau sedikit perubahan pada karya seperti merubah nama, kesamaan kejadian, dan merubah sudut pandang.
+                      Pelanggaran copyright adalah pelanggaran yang menyangkut tentang hak milik seseorang. Jika pengguna Nove-list mempublikasikan karya milik orang lain, maka pihak Nove-list tidak bertanggung jawab. Hal-hal yang termasuk dalam pelanggaran antara lain adaptasi atau sedikit perubahan pada karya seperti merubah nama, kesamaan kejadian, dan merubah sudut pandang.
                       <br/>
                       <br/>
-                      Copyright hanya melindungi fisik dari sebuah ide, bukan ide itu sendiri. Tetapi, kesamaan akan ide, tema ide, dan judul tidak termasuk dalam pelanggaran copyright kecuali terdapat bukti kuat. Jika hal tersebut terjadi maka pihak Novel-list menyarankan untuk segera menghubungi penulis terkait dan menyelesaikannya secara kekeluargaan.
+                      Copyright hanya melindungi fisik dari sebuah ide, bukan ide itu sendiri. Tetapi, kesamaan akan ide, tema ide, dan judul tidak termasuk dalam pelanggaran copyright kecuali terdapat bukti kuat. Jika hal tersebut terjadi maka pihak Nove-list menyarankan untuk segera menghubungi penulis terkait dan menyelesaikannya secara kekeluargaan.
                     </DialogContentText>
                   </DialogContent>
                 </Dialog>
@@ -110,8 +110,8 @@ class Footer extends React.Component {
                     
                       <Typography variant="title" className={classes.contenttext}>Pelanggaran Copyright</Typography>
                       <br/>
-                      Tujuan dari website Novel-list ini adalah untuk membuat cerita yang dapat ditemui oleh semua orang, untuk itu pengguna perlu menyadari adanya tipe konten dari cerita yang tersedia untuk dibaca serta tipe konten cerita yang dapat dibuat dan tidak boleh dibuat.
-                      Untuk itu sebelum membuat cerita di Novel-list, ada bainknya memerhatikan hal berikut:
+                      Tujuan dari website Nove-list ini adalah untuk membuat cerita yang dapat ditemui oleh semua orang, untuk itu pengguna perlu menyadari adanya tipe konten dari cerita yang tersedia untuk dibaca serta tipe konten cerita yang dapat dibuat dan tidak boleh dibuat.
+                      Untuk itu sebelum membuat cerita di Nove-list, ada bainknya memerhatikan hal berikut:
                       <ul>
                         <li>Cerita yang akan dibuat harus sesuai dengan Rating seperti yang dituliskan dibawah beserta Konten yang Dilarang</li>
                         <li>Cerita yang dibuat sepenuhnya milik pribadi atau telah memiliki persetujuan dari penulis yang bersangkutan, dapat dilihat di Copyright</li>
@@ -125,7 +125,7 @@ class Footer extends React.Component {
                       <br/>
                       <Typography variant="title" className={classes.contenttext}>Mature Content</Typography>
                       <br/>
-                      Mature Content merupakan cerita untuk 18 tahun ke atas (dewasa). Terdapat pembatasan dalam menemukan mature content di Novel-list. Berikut beberapa konten yang dapat dikategorikan dewasa:
+                      Mature Content merupakan cerita untuk 18 tahun ke atas (dewasa). Terdapat pembatasan dalam menemukan mature content di Nove-list. Berikut beberapa konten yang dapat dikategorikan dewasa:
                       <ul>
                         <li>Terdapat sex-scene (R-rated)</li>
                         <li>Adanya tema atau konten yang menyakiti dirinya sendiri (self-harm)</li>
@@ -134,7 +134,7 @@ class Footer extends React.Component {
                       <br/>
                       <Typography variant="title" className={classes.contenttext}>Konten yang Dilarang (Prohibited Content)</Typography>
                       <br/>
-                      Berikut beberapa cerita yang dilarang, pihak Novel-list berhak menghapus konten yang dianggap melanggar aturan:
+                      Berikut beberapa cerita yang dilarang, pihak Nove-list berhak menghapus konten yang dianggap melanggar aturan:
                       <ul>
                         <li>Cerita pornography</li>
                         <li>Cerita yang mengandung pesan non-consensual sex</li>

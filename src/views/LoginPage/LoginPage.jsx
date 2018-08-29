@@ -9,9 +9,7 @@ import Email from "@material-ui/icons/Email";
 import LockOutline from "@material-ui/icons/LockOutline";
 
 // core components
-import Header from "components/Header/Header.jsx";
-import HeaderLinks from "components/Header/HeaderLinks.jsx";
-
+import EmptyHeader from "components/Header/EmptyHeader.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import Button from "components/CustomButtons/Button.jsx";
@@ -24,7 +22,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import SnackbarContent from "@material-ui/core/SnackbarContent";
 
-
 import Particles from 'react-particles-js';
 
 //style
@@ -33,10 +30,10 @@ import loginPageStyle from "assets/jss/material-kit-react/views/loginPage.jsx";
 const particlesOptions = {
   particles: {
     number: {
-      value: 200,
+      value: 150,
       density: {
         enable: true,
-        value_area: 800
+        value_area: 400
       }
     },
     move:{
@@ -104,6 +101,10 @@ class LoginPage extends React.Component {
 
   }
 
+  componentWillUnmount(){
+    clearTimeout();
+  }
+
   // email change
   onEmailChange = (event) => {
     this.setState({ signInEmail : event.target.value})
@@ -137,28 +138,21 @@ class LoginPage extends React.Component {
 
 
   render() {
+    // eslint-disable-next-line
     const { classes, ...rest } = this.props;
     const { errorLogin } = this.state;
 
-    if( this.state.isSignIn === true){
-      return <Redirect 
-      to={{
-        pathname: '/home',
+    if(this.state.isSignIn){
+      return <Redirect to={{
+        pathname: "/home",
         state: { id: this.state.user.id}
-      }} />
+      }}/>
     }
+    
 
     return (
       <div>
-        
-        <Header
-          fixed
-          color="montecarlo"
-          brand="Novel-list"
-          rightLinks={<HeaderLinks  navLink1="" navLink2="" navLink3="" navLink4=""/>}
-          {...rest}
-        />
-        
+        <EmptyHeader/>          
         <div
           className={classes.pageHeader}
         >

@@ -79,9 +79,10 @@ class EditProfilePage extends React.Component {
     }
 
     render() {
+        // eslint-disable-next-line
         const { classes, ...rest } = this.props;
         const {gender,  saved, id} = this.state;
-        console.log(saved)
+        
         if(saved === true){
             return <Redirect to={{
                 pathname: '/profile-page',
@@ -90,7 +91,7 @@ class EditProfilePage extends React.Component {
         }
         return (
           <div>
-            <HeaderHome/>
+            <HeaderHome id={id}/>
             
             <div className={classNames(classes.main, classes.mainRaised)}>
               <div className={classes.container}>
